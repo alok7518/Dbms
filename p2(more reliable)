@@ -1,0 +1,73 @@
+create table Publishers(
+Publisher_Id int primary key,
+Publisher_Name varchar(30) NOT NULL
+)
+insert into Publishers VALUES(101,'arihant');
+insert into Publishers VALUES(212,'Khan gs');
+insert into Publishers VALUES(313,'utkarsh');
+insert into Publishers VALUES(484,'dhristi');
+insert into Publishers VALUES(525,'made easy');
+
+
+
+create table Categories(
+Category_Id int primary key,
+Category_Name varchar(30) NOT NULL
+)
+insert into Categories VALUES(10,'Horror');
+insert into Categories VALUES(21,'Funny');
+insert into Categories VALUES(31,'SCI_FI');
+insert into Categories VALUES(48,'Drama');
+insert into Categories VALUES(52,'Emotional');
+
+
+
+create table Books (
+Book_id int primary key identity(1,1),
+Title varchar(50)  NOT NULL,
+ISBN int unique NOT NULL,
+Publication_year int NOT NULL,
+Publisher_id int foreign key references Publishers(Publisher_Id ) on delete cascade,
+Category_id int foreign key references Categories(Category_id ) on delete cascade,
+Author_Name varchar(50) CHECK(Author_Name is not null)
+)
+insert into Books VALUES('The monk',123,2001,212,21,'Vikram');
+insert into Books VALUES('21 lessons',676,1967,101,10,'Tom');
+insert into Books VALUES('Abstract Emotions',766,1999,313,31,'Henry');
+insert into Books VALUES('oop and spirituality',23456,2000,484,48,'Ashumeet');
+insert into Books VALUES('Change management',5678,2014,525,52,'Mona');
+
+
+
+create table Users (
+User_id int primary key,
+Username varchar(50)  NOT NULL,
+Email varchar(76) unique NOT NULL,
+Phone_Number bigint unique NOT NULL
+)
+insert into Users VALUES(511,'john123','john123@gmail.com',7856556783);
+insert into Users VALUES(512,'krate334','krate334@gmail.com',8834568231);
+insert into Users VALUES(513,'drom784','drom784@gmail.com',9856783534);
+insert into Users VALUES(514,'luis457','luis457@gmail.com',7658567834);
+insert into Users VALUES(515,'loto557','loto557@gmail.com',7586783431);
+SELECT*FROM Users
+
+
+create table Borrowings (
+Borrow_id int primary key ,
+User_id int foreign key references Users(User_Id ) on delete cascade,
+Book_id int foreign key references Books(Book_Id ) on delete cascade,
+Borrow Date NOT NULL,
+Return1 Date NOT NULL
+)
+insert into Borrowings VALUES('51',511,1,'2015-12-01','2005-08-09');
+insert into Borrowings VALUES('52',512,2,'2016-01-05','2001-05-02');
+insert into Borrowings VALUES('53',513,3,'1988-03-31','2016-01-05');
+insert into Borrowings VALUES('54',514,4,'2001-05-02','2015-12-01');
+insert into Borrowings VALUES('55',515,5,'2005-08-09','1988-03-31');
+
+
+SELECT*FROM Books;
+SELECT*FROM Categories;
+SELECT*FROM Publishers;
+SELECT*from Borrowings;
